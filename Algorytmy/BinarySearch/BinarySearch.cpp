@@ -25,20 +25,12 @@ bool isNumberInArray(long long int number, vector <long long int> orderedNumbers
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
-    if (number <= orderedNumbers[pivot])
+    if (number < orderedNumbers[pivot])
     {
-        if(orderedNumbers[pivot]==number)
-        {
-            return true;
-        }
-        orderedNumbers = slice(orderedNumbers[0], orderedNumbers[pivot]);
-
+        orderedNumbers = slice(orderedNumbers[0], orderedNumbers[pivot-1]);
     }
     else
     {
@@ -73,7 +65,9 @@ int main()
     long long int firstElemVal, lastElemVal;
     long long int number;
 
-    cin >> firstElemVal >> lastElemVal >> number;
+    cin >> firstElemVal >> lastElemVal;
+    cin >> number;
+    cout << endl;
 
     orderedNumbers = filledOrderedNumbersToArray(firstElemVal, lastElemVal);
 
@@ -86,11 +80,12 @@ int main()
 
     bool isNumInArray = isNumberInArray(number, orderedNumbers);
 
+    cout << isNumInArray << endl;
+
     if(isNumInArray)
         cout << "yes" << endl;
     else
         cout << "no" << endl;
-    //bool isNumInArray = isNumberInArray(number, orderedNumbers);
 
     return 0;
 }
