@@ -4,44 +4,60 @@
 
 using namespace std;
 
-vector <long long int> slice(long long int firstElem, long long int lastElem)
+void slice(long long int firstElemIndex, long long int lastElemIndex, vector <long long int> &orderedNumbers)
 {
     vector <long long int> arr;
 
-    for(int i=firstElem; i<=lastElem; i++)
+    for(int i=firstElemIndex; i<=lastElemIndex; i++)
     {
-        arr.push_back(i);
+        arr.push_back(orderedNumbers[i]);
     }
-    return arr;
+    orderedNumbers.clear();
+    orderedNumbers = arr;
+    for(int i = 0; i< orderedNumbers.size(); i++)
+        cout << orderedNumbers[i] << endl;
+    cout << endl;
 }
 
 bool isNumberInArray(long long int number, vector <long long int> orderedNumbers)
 {
     int pivot = orderedNumbers.size()/2;
 
-    if (orderedNumbers.size() == 1)
+    if(number == orderedNumbers[pivot])
     {
-        if(orderedNumbers[0] == number)
-        {
-            return true;
-        }
+        return true;
+    }
+    else if(orderedNumbers.size()==1 && number != orderedNumbers[pivot])
+    {
         return false;
     }
 
+/*    if (orderedNumbers.size() == 1)
+    {
+        cout << "Size = 1" << endl;
+        if(orderedNumbers[0] == number)
+        {
+            cout << "Hello!" << endl;
+            return true;
+        }
+        cout << "false" << endl;
+        return false;
+    }*/
+
     if (number < orderedNumbers[pivot])
     {
-        orderedNumbers = slice(orderedNumbers[0], orderedNumbers[pivot-1]);
+        slice(0, pivot-1, orderedNumbers);
     }
-    else
+    else if(number > orderedNumbers[pivot])
     {
-        orderedNumbers = slice(orderedNumbers[pivot], orderedNumbers[orderedNumbers.size()-1]);
+        slice(pivot, orderedNumbers.size()-1, orderedNumbers);
     }
-
+/*
     for(int i=0; i<orderedNumbers.size(); i++)
     {
         cout << orderedNumbers[i] << endl;
     }
-    cout << endl;
+    cout << endl;*/
 
     isNumberInArray(number, orderedNumbers);
 }
