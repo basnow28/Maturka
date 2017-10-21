@@ -1,10 +1,9 @@
 #include <iostream>
 #include <vector>
-#include <math.h>
 
 using namespace std;
 
-void slice(long long int firstElemIndex, long long int lastElemIndex, vector <long long int> &orderedNumbers)
+vector <long long int> slice(long long int firstElemIndex, long long int lastElemIndex, vector <long long int> orderedNumbers)
 {
     vector <long long int> arr;
 
@@ -12,54 +11,36 @@ void slice(long long int firstElemIndex, long long int lastElemIndex, vector <lo
     {
         arr.push_back(orderedNumbers[i]);
     }
-    orderedNumbers.clear();
-    orderedNumbers = arr;
-    for(int i = 0; i< orderedNumbers.size(); i++)
-        cout << orderedNumbers[i] << endl;
-    cout << endl;
+    return arr;
 }
 
 bool isNumberInArray(long long int number, vector <long long int> orderedNumbers)
 {
     int pivot = orderedNumbers.size()/2;
 
+    cout << "Number: " << number << ", orderedNumbers.size: " << orderedNumbers.size() << " pivot: " << pivot << endl;
+
     if(number == orderedNumbers[pivot])
     {
+        cout <<"t"<< endl;
         return true;
     }
-    else if(orderedNumbers.size()==1 && number != orderedNumbers[pivot])
+    else if(orderedNumbers.size()==1)
     {
+        cout << "f" << endl;
         return false;
     }
-
-/*    if (orderedNumbers.size() == 1)
+    else
     {
-        cout << "Size = 1" << endl;
-        if(orderedNumbers[0] == number)
+        if (number < orderedNumbers[pivot])
         {
-            cout << "Hello!" << endl;
-            return true;
+            return isNumberInArray(number, slice(0, pivot-1, orderedNumbers));
         }
-        cout << "false" << endl;
-        return false;
-    }*/
-
-    if (number < orderedNumbers[pivot])
-    {
-        slice(0, pivot-1, orderedNumbers);
+        else if(number > orderedNumbers[pivot])
+        {
+            return isNumberInArray(number, slice(pivot+1, orderedNumbers.size()-1, orderedNumbers));
+        }
     }
-    else if(number > orderedNumbers[pivot])
-    {
-        slice(pivot, orderedNumbers.size()-1, orderedNumbers);
-    }
-/*
-    for(int i=0; i<orderedNumbers.size(); i++)
-    {
-        cout << orderedNumbers[i] << endl;
-    }
-    cout << endl;*/
-
-    isNumberInArray(number, orderedNumbers);
 }
 
 vector <long long int> filledOrderedNumbersToArray(long long int firstElemVal, long long int lastElemVal)
@@ -78,30 +59,19 @@ vector <long long int> filledOrderedNumbersToArray(long long int firstElemVal, l
 int main()
 {
     vector <long long int> orderedNumbers;
-    long long int firstElemVal, lastElemVal;
-    long long int number;
-
-    cin >> firstElemVal >> lastElemVal;
-    cin >> number;
-    cout << endl;
+    long long int firstElemVal = 1, lastElemVal = 15;
+    long long int number = 1;
 
     orderedNumbers = filledOrderedNumbersToArray(firstElemVal, lastElemVal);
 
-    for(int i=0; i<orderedNumbers.size(); i++)
+    for(auto i = 0; i<orderedNumbers.size(); i++)
     {
-        cout << orderedNumbers[i] << endl;
+        cout << orderedNumbers [i] << endl;
     }
 
-    cout << endl;
+    cout << "dupa" << endl;
 
-    bool isNumInArray = isNumberInArray(number, orderedNumbers);
-
-    cout << isNumInArray << endl;
-
-    if(isNumInArray)
-        cout << "yes" << endl;
-    else
-        cout << "no" << endl;
+    cout << "isNum(22)" << isNumberInArray(number, orderedNumbers)<< endl;
 
     return 0;
 }
