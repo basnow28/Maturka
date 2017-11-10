@@ -11,11 +11,12 @@ auto reverseArray(vector <long long int> &arrayToReverse, long long int firstEle
 {
     if(firstElemIndex == (arrayToReverse.size()/2))
         return arrayToReverse;
+
     arrayToReverse[lastElemIndex] = arrayToReverse[firstElemIndex];
     arrayToReverse[firstElemIndex] = lastElemValue;
     lastElemValue = arrayToReverse[lastElemIndex - 1];
 
-    reverseArray(arrayToReverse, firstElemIndex+1, lastElemIndex-1, lastElemValue);
+    return reverseArray(arrayToReverse, firstElemIndex+1, lastElemIndex-1, lastElemValue);
 }
 
 int main()
@@ -29,6 +30,7 @@ int main()
         cout << arrayToReverse[i-1] << endl;
     }
     cout << endl;
+
     long long int lastElemValue = arrayToReverse[arrayToReverse.size()- 1];
 
     vector <int> newArray(arrayToReverse.size());
