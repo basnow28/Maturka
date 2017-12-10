@@ -8,8 +8,8 @@
 using namespace std;
 
 
-long long int dodajCyfry(string liczba)
-{[]
+long long int dodajCyfry(long long int liczba)
+{
     if(liczba < 10){
         return liczba;
     }
