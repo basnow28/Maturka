@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <string>
 #include <stack>
+#include <cstdlib>
 
 using namespace std;
 
@@ -21,26 +22,18 @@ bool findFromVector(char character, vector <char> supportedCharacters)
 
 bool isSpecialCharacter(string toEvaluate)
 {
-    if(toEvaluate.size() != 1)
-    {
-        return false;
-    }
+    if(toEvaluate.size() != 1) return false;
 
-    char character = toEvaluate[0];
-    if(char(character) >= 40 && character <= 47)
-    {
-        return true;
-    }
-
-    return false;
+        char character = toEvaluate[0];
+    return (char(character) >= 40 && character <= 47) ?
+        true
+        : false;
 }
 
 bool isSupportedSpecialCharacter(string character, vector <char> supportedOperators)
 {
-    if(!isSpecialCharacter(character))
-    {
-        return false;
-    }
+    if(!isSpecialCharacter(character)) return false;
+
     char operat = character[0];
 
     if(findFromVector(operat, supportedOperators))
@@ -53,22 +46,19 @@ bool isSupportedSpecialCharacter(string character, vector <char> supportedOperat
 bool isStringANumber(string toEvaluate)
 {
     for(int i=0; i<toEvaluate.size(); i++)
-    {
-        if(toEvaluate[i] < 48 || toEvaluate[i] > 57)
-        {
-            return false;
-        }
-    }
+        if(toEvaluate[i] < 48 || toEvaluate[i] > 57) return false;
+
     return true;
 }
 
 long long int power(long long int num, long long int pow)
 {
+    long long int powr = pow;
     long long int score = 1;
-    while(pow>0)
+    while(powr>0)
     {
         score *= num;
-        pow -= 1;
+        powr -= 1;
     }
     return score;
 }
@@ -165,7 +155,7 @@ int main()
         supportedOperators.push_back('+');
         supportedOperators.push_back('-');
 
-    cout << rpnParse(rpn, supportedOperators);
+    cout << rpnParse(rpn, supportedOperators) << endl;
 
     return 0;
 }
